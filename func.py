@@ -22,11 +22,11 @@ def get_deadletters_cnt(servicebus_mgmt_client):
         subs = servicebus_mgmt_client.list_subscriptions(topic_properties.name)
         for sub in subs:
             prop = servicebus_mgmt_client.get_subscription_runtime_properties(topic_properties.name, sub.name)
-            # print("Topic Name: " + topic_properties.name +", " + sub.name + ": total_message_count - " + str(prop.total_message_count) +
-            #     ", active_message_count:" + str(prop.active_message_count) +
-            #     ", dead_letter_message_count:" + str(prop.dead_letter_message_count)
-            #     )
             if (prop.dead_letter_message_count > 0):
+                print("Topic Name: " + topic_properties.name +", " + sub.name + ": total_message_count - " + str(prop.total_message_count) +
+                    ", active_message_count:" + str(prop.active_message_count) +
+                    ", dead_letter_message_count:" + str(prop.dead_letter_message_count)
+                    )
                 result[topic_properties.name] = {'Subscription': sub.name, 'dead_letters_count': prop.dead_letter_message_count}
     return result
 def generate_html_table(data):
